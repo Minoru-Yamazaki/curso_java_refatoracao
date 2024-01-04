@@ -11,9 +11,9 @@ import java.net.http.HttpResponse;
 
 public class Requisicao {
 
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private ObjectMapper objectMapper = new ObjectMapper();
 
-    public static HttpResponse<String> post(String uri, Domain json) throws IOException, InterruptedException {
+    public HttpResponse<String> post(String uri, Domain json) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(uri))
                 .header("Content-Type", "application/json")
@@ -22,7 +22,7 @@ public class Requisicao {
         return HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
     }
 
-    public static HttpResponse<String> get(String uri) throws IOException, InterruptedException {
+    public HttpResponse<String> get(String uri) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(uri))
                 .method("GET", HttpRequest.BodyPublishers.noBody())
