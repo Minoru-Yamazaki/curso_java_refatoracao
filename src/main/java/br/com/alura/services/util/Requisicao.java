@@ -1,6 +1,7 @@
 package br.com.alura.services.util;
 
-import com.google.gson.JsonObject;
+import br.com.alura.dominio.Domain;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.net.URI;
@@ -10,11 +11,13 @@ import java.net.http.HttpResponse;
 
 public class Requisicao {
 
-    public static HttpResponse<String> post(String uri, JsonObject json) throws IOException, InterruptedException {
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+
+    public static HttpResponse<String> post(String uri, Domain json) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(uri))
                 .header("Content-Type", "application/json")
-                .method("POST", HttpRequest.BodyPublishers.ofString(json.toString()))
+                .method("POST", HttpRequest.BodyPublishers.ofString(objectMapper.writeValueAsString(json)))
                 .build();
         return HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
     }
