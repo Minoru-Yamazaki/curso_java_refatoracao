@@ -6,6 +6,7 @@ public class Formulario {
 
     public static String getString(String titulo) {
         System.out.println(titulo);
-        return new Scanner(System.in).nextLine();
+        Scanner scanner = new Scanner(System.in);
+        return scanner.hasNextLine() ? scanner.nextLine() : "";
     }
 }

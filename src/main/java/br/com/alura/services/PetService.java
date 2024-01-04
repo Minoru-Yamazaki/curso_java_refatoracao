@@ -14,10 +14,16 @@ import java.util.List;
 
 public class PetService {
 
+    private final Requisicao requisicao;
+
+    public PetService(Requisicao requisicao) {
+        this.requisicao = requisicao;
+    }
+
     public void listarPetsDoAbrigo() throws IOException, InterruptedException {
         String idOuNome = Formulario.getString("Digite o id ou nome do abrigo:");
 
-        HttpResponse<String> response = Requisicao.get("http://localhost:8080/abrigos/" +idOuNome +"/pets");
+        HttpResponse<String> response = requisicao.get("http://localhost:8080/abrigos/" +idOuNome +"/pets");
         int statusCode = response.statusCode();
         if (statusCode == 404 || statusCode == 500) {
             System.out.println("ID ou nome não cadastrado!");
@@ -45,7 +51,7 @@ public class PetService {
         while ((line = reader.readLine()) != null) {
             Pet pet = toPet(line.split(","));
 
-            HttpResponse<String> response = Requisicao.post("http://localhost:8080/abrigos/" + idOuNome + "/pets", pet);
+            HttpResponse<String> response = requisicao.post("http://localhost:8080/abrigos/" + idOuNome + "/pets", pet);
 
             int statusCode = response.statusCode();
             String responseBody = response.body();

@@ -2,14 +2,16 @@ package br.com.alura;
 
 import br.com.alura.services.AbrigoService;
 import br.com.alura.services.PetService;
+import br.com.alura.services.util.Requisicao;
 
 import java.util.Scanner;
 
 public class AdopetConsoleApplication {
 
     public static void main(String[] args) {
-        AbrigoService abrigoService = new AbrigoService();
-        PetService petService = new PetService();
+        Requisicao requisicao = new Requisicao();
+        AbrigoService abrigoService = new AbrigoService(requisicao);
+        PetService petService = new PetService(requisicao);
 
         System.out.println("##### BOAS VINDAS AO SISTEMA ADOPET CONSOLE #####");
         try {
